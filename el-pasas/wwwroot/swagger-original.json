@@ -1,0 +1,1127 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "",
+    "version" : "0.1",
+    "title" : "eDocument API",
+    "termsOfService" : ""
+  },
+  "host" : "el-pasas.azurewebsites.net",
+  "basePath" : "/api",
+  "tags" : [ {
+    "name" : "User",
+    "description" : "Manage user session and authorization"
+  }, {
+    "name" : "Passport",
+    "description" : "Operations with Passport"
+  }, {
+    "name" : "PersonalIdentityCard",
+    "description" : "Operations with Personal Identity Card"
+  }, {
+    "name" : "DrivingLicence",
+    "description" : "Operations with Driving Licence"
+  }, {
+    "name" : "StudentIdentityCard",
+    "description" : "Operations with Student Identity Card"
+  } ],
+  "security" : [ {
+    "Token" : [ ]
+  } ],
+  "paths" : {
+    "/user/login" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Logs user into the system",
+        "operationId" : "loginUser",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "creds",
+          "in" : "query",
+          "description" : "The string with user credentials in base64",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful login",
+            "headers" : {
+              "X-Expires-After" : {
+                "type" : "string",
+                "format" : "date-time",
+                "description" : "Date in UTC when token expires"
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/Authorization"
+            }
+          },
+          "400" : {
+            "description" : "Invalid login credentials supplied"
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/user/logout" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Logs out current logged in user session",
+        "operationId" : "logoutUser",
+        "produces" : [ "text/plain" ],
+        "parameters" : [ {
+          "name" : "creds",
+          "in" : "query",
+          "description" : "The string with user credentials in base64",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "Successfully logged off"
+          }
+        }
+      }
+    },
+    "/passport/{userId}" : {
+      "get" : {
+        "tags" : [ "Passport" ],
+        "summary" : "Get Passport for the User",
+        "operationId" : "getPassport",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Passport model",
+            "schema" : {
+              "$ref" : "#/definitions/Passport"
+            }
+          },
+          "404" : {
+            "description" : "Passport for this {userId} not found"
+          }
+        }
+      }
+    },
+    "/passport/{userId}/image/small" : {
+      "get" : {
+        "tags" : [ "Passport" ],
+        "summary" : "Get small profile image for the Passport which belongs to the User",
+        "operationId" : "getPassportImageSmall",
+        "produces" : [ "image/jpeg" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Passport small profile image"
+          },
+          "404" : {
+            "description" : "Passport small image for this {userId} not found"
+          }
+        }
+      }
+    },
+    "/passport/{userId}/signature" : {
+      "get" : {
+        "tags" : [ "Passport" ],
+        "summary" : "Get signature image for the Passport which belongs to the User",
+        "operationId" : "getPassportSignature",
+        "produces" : [ "image/jpeg" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Passport signature image"
+          },
+          "404" : {
+            "description" : "Passport signature image for this {userId} not found"
+          }
+        }
+      }
+    },
+    "/passport/{userId}/qr" : {
+      "get" : {
+        "tags" : [ "Passport" ],
+        "summary" : "Get QR code for the Passport which belongs to the User",
+        "operationId" : "getPassportQr",
+        "produces" : [ "text/plain" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Passport QR code"
+          },
+          "404" : {
+            "description" : "Passport QR code for this {userId} not found"
+          }
+        }
+      }
+    },
+    "/passport/{userId}/nfc" : {
+      "get" : {
+        "tags" : [ "Passport" ],
+        "summary" : "Get NFC code for the Passport which belongs to the User",
+        "operationId" : "getPassportNfc",
+        "produces" : [ "text/plain" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Passport NFC code"
+          },
+          "404" : {
+            "description" : "Passport NFC code for this {userId} not found"
+          }
+        }
+      }
+    },
+    "/passport/{userId}/image" : {
+      "get" : {
+        "tags" : [ "Passport" ],
+        "summary" : "Get profile image for the Passport which belongs to the User",
+        "operationId" : "getPassportImage",
+        "produces" : [ "image/jpeg" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Passport profile image"
+          },
+          "404" : {
+            "description" : "Passport image for this {userId} not found"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Passport" ],
+        "summary" : "Update profile image for the Passport which belongs to the User",
+        "operationId" : "putPassportImage",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "image",
+          "in" : "formData",
+          "description" : "Image to upload",
+          "required" : true,
+          "type" : "file"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Successfully uploaded Passport profile image"
+          },
+          "400" : {
+            "description" : "Provided image is invalid"
+          }
+        }
+      }
+    },
+    "/passport/{userId}/validate" : {
+      "put" : {
+        "tags" : [ "Passport" ],
+        "summary" : "Request to revalidate and extend expiration for Passport",
+        "operationId" : "putPassportValidation",
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Successfully requested Passport revalidation"
+          },
+          "404" : {
+            "description" : "Passport for this {userId} not found"
+          }
+        }
+      }
+    },
+    "/personalIdentityCard/{userId}" : {
+      "get" : {
+        "tags" : [ "PersonalIdentityCard" ],
+        "summary" : "Get Personal Identity Card for the User",
+        "operationId" : "getPersonalIdentityCard",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Personal Identity Card model",
+            "schema" : {
+              "$ref" : "#/definitions/PersonalIdentityCard"
+            }
+          },
+          "404" : {
+            "description" : "Personal Identity Card for this {userId} not found"
+          }
+        }
+      }
+    },
+    "/personalIdentityCard/{userId}/image/small" : {
+      "get" : {
+        "tags" : [ "PersonalIdentityCard" ],
+        "summary" : "Get small profile image for the Personal Identity Card which belongs to the User",
+        "operationId" : "getPersonalIdentityCardImageSmall",
+        "produces" : [ "image/jpeg" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Personal Identity Card small profile image"
+          },
+          "404" : {
+            "description" : "Personal Identity Card small image for this {userId} not found"
+          }
+        }
+      }
+    },
+    "/personalIdentityCard/{userId}/signature" : {
+      "get" : {
+        "tags" : [ "PersonalIdentityCard" ],
+        "summary" : "Get signature image for the Personal Identity Card which belongs to the User",
+        "operationId" : "getPersonalIdentityCardSignature",
+        "produces" : [ "image/jpeg" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Personal Identity Card signature image"
+          },
+          "404" : {
+            "description" : "Personal Identity Card signature image for this {userId} not found"
+          }
+        }
+      }
+    },
+    "/personalIdentityCard/{userId}/qr" : {
+      "get" : {
+        "tags" : [ "PersonalIdentityCard" ],
+        "summary" : "Get QR code for the Personal Identity Card which belongs to the User",
+        "operationId" : "getPersonalIdentityCardQr",
+        "produces" : [ "text/plain" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Personal Identity Card QR code"
+          },
+          "404" : {
+            "description" : "Personal Identity Card QR code for this {userId} not found"
+          }
+        }
+      }
+    },
+    "/personalIdentityCard/{userId}/nfc" : {
+      "get" : {
+        "tags" : [ "PersonalIdentityCard" ],
+        "summary" : "Get NFC code for the Personal Identity Card which belongs to the User",
+        "operationId" : "getPersonalIdentityCardNfc",
+        "produces" : [ "text/plain" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Personal Identity Card NFC code"
+          },
+          "404" : {
+            "description" : "Personal Identity Card NFC code for this {userId} not found"
+          }
+        }
+      }
+    },
+    "/personalIdentityCard/{userId}/image" : {
+      "get" : {
+        "tags" : [ "PersonalIdentityCard" ],
+        "summary" : "Get profile image for the Personal Identity Card which belongs to the User",
+        "operationId" : "getPersonalIdentityCardImage",
+        "produces" : [ "image/jpeg" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Personal Identity Card profile image"
+          },
+          "404" : {
+            "description" : "Personal Identity Card image for this {userId} not found"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "PersonalIdentityCard" ],
+        "summary" : "Update profile image for the Personal Identity Card which belongs to the User",
+        "operationId" : "putPersonalIdentityCardImage",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "image",
+          "in" : "formData",
+          "description" : "Image to upload",
+          "required" : true,
+          "type" : "file"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Successfully uploaded Personal Identity Card profile image"
+          },
+          "400" : {
+            "description" : "Provided image is invalid"
+          }
+        }
+      }
+    },
+    "/personalIdentityCard/{userId}/validate" : {
+      "put" : {
+        "tags" : [ "PersonalIdentityCard" ],
+        "summary" : "Request to revalidate and extend expiration for Personal Identity Card",
+        "operationId" : "putPersonalIdentityCardValidation",
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Successfully requested Personal Identity Card revalidation"
+          },
+          "404" : {
+            "description" : "Personal Identity Card for this {userId} not found"
+          }
+        }
+      }
+    },
+    "/drivingLicence/{userId}" : {
+      "get" : {
+        "tags" : [ "DrivingLicence" ],
+        "summary" : "Get Driving Licence for the User",
+        "operationId" : "getDrivingLicence",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Driving Licence model",
+            "schema" : {
+              "$ref" : "#/definitions/DrivingLicence"
+            }
+          },
+          "404" : {
+            "description" : "Driving Licence for this {userId} not found"
+          }
+        }
+      }
+    },
+    "/drivingLicence/{userId}/image/small" : {
+      "get" : {
+        "tags" : [ "DrivingLicence" ],
+        "summary" : "Get small profile image for the Driving Licence which belongs to the User",
+        "operationId" : "getDrivingLicenceImageSmall",
+        "produces" : [ "image/jpeg" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Driving Licence small profile image"
+          },
+          "404" : {
+            "description" : "Driving Licence small image for this {userId} not found"
+          }
+        }
+      }
+    },
+    "/drivingLicence/{userId}/signature" : {
+      "get" : {
+        "tags" : [ "DrivingLicence" ],
+        "summary" : "Get signature image for the Driving Licence which belongs to the User",
+        "operationId" : "getDrivingLicenceSignature",
+        "produces" : [ "image/jpeg" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Driving Licence signature image"
+          },
+          "404" : {
+            "description" : "Driving Licence signature image for this {userId} not found"
+          }
+        }
+      }
+    },
+    "/drivingLicence/{userId}/qr" : {
+      "get" : {
+        "tags" : [ "DrivingLicence" ],
+        "summary" : "Get QR code for the Driving Licence which belongs to the User",
+        "operationId" : "getDrivingLicenceQr",
+        "produces" : [ "text/plain" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Driving Licence QR code"
+          },
+          "404" : {
+            "description" : "Driving Licence QR code for this {userId} not found"
+          }
+        }
+      }
+    },
+    "/drivingLicence/{userId}/nfc" : {
+      "get" : {
+        "tags" : [ "DrivingLicence" ],
+        "summary" : "Get NFC code for the Driving Licence which belongs to the User",
+        "operationId" : "getDrivingLicenceNfc",
+        "produces" : [ "text/plain" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Driving Licence NFC code"
+          },
+          "404" : {
+            "description" : "Driving Licence NFC code for this {userId} not found"
+          }
+        }
+      }
+    },
+    "/drivingLicence/{userId}/image" : {
+      "get" : {
+        "tags" : [ "DrivingLicence" ],
+        "summary" : "Get profile image for the Driving Licence which belongs to the User",
+        "operationId" : "getDrivingLicenceImage",
+        "produces" : [ "image/jpeg" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Driving Licence profile image"
+          },
+          "404" : {
+            "description" : "Driving Licence image for this {userId} not found"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "DrivingLicence" ],
+        "summary" : "Update profile image for the Driving Licence which belongs to the User",
+        "operationId" : "putDrivingLicenceImage",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "image",
+          "in" : "formData",
+          "description" : "Image to upload",
+          "required" : true,
+          "type" : "file"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Successfully uploaded Driving Licence profile image"
+          },
+          "400" : {
+            "description" : "Provided image is invalid"
+          }
+        }
+      }
+    },
+    "/drivingLicence/{userId}/validate" : {
+      "put" : {
+        "tags" : [ "DrivingLicence" ],
+        "summary" : "Request to revalidate and extend expiration for Driving Licence",
+        "operationId" : "putDrivingLicenceValidation",
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Successfully requested Driving Licence revalidation"
+          },
+          "404" : {
+            "description" : "Driving Licence for this {userId} not found"
+          }
+        }
+      }
+    },
+    "/studentIdentityCard/{userId}" : {
+      "get" : {
+        "tags" : [ "StudentIdentityCard" ],
+        "summary" : "Get Student Identity Card for the User",
+        "operationId" : "getStudentIdentityCard",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Student Identity Card model",
+            "schema" : {
+              "$ref" : "#/definitions/StudentIdentityCard"
+            }
+          },
+          "404" : {
+            "description" : "Student Identity Card for this {userId} not found"
+          }
+        }
+      }
+    },
+    "/studentIdentityCard/{userId}/image/small" : {
+      "get" : {
+        "tags" : [ "StudentIdentityCard" ],
+        "summary" : "Get small profile image for the Student Identity Card which belongs to the User",
+        "operationId" : "getStudentIdentityCardImageSmall",
+        "produces" : [ "image/jpeg" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Student Identity Card small profile image"
+          },
+          "404" : {
+            "description" : "Student Identity Card small image for this {userId} not found"
+          }
+        }
+      }
+    },
+    "/studentIdentityCard/{userId}/signature" : {
+      "get" : {
+        "tags" : [ "StudentIdentityCard" ],
+        "summary" : "Get signature image for the Student Identity Card which belongs to the User",
+        "operationId" : "getStudentIdentityCardSignature",
+        "produces" : [ "image/jpeg" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Student Identity Card signature image"
+          },
+          "404" : {
+            "description" : "Student Identity Card signature image for this {userId} not found"
+          }
+        }
+      }
+    },
+    "/studentIdentityCard/{userId}/qr" : {
+      "get" : {
+        "tags" : [ "StudentIdentityCard" ],
+        "summary" : "Get QR code for the Student Identity Card which belongs to the User",
+        "operationId" : "getStudentIdentityCardQr",
+        "produces" : [ "text/plain" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Student Identity Card QR code"
+          },
+          "404" : {
+            "description" : "Student Identity Card QR code for this {userId} not found"
+          }
+        }
+      }
+    },
+    "/studentIdentityCard/{userId}/nfc" : {
+      "get" : {
+        "tags" : [ "StudentIdentityCard" ],
+        "summary" : "Get NFC code for the Student Identity Card which belongs to the User",
+        "operationId" : "getStudentIdentityCardNfc",
+        "produces" : [ "text/plain" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Student Identity Card NFC code"
+          },
+          "404" : {
+            "description" : "Student Identity Card NFC code for this {userId} not found"
+          }
+        }
+      }
+    },
+    "/studentIdentityCard/{userId}/image" : {
+      "get" : {
+        "tags" : [ "StudentIdentityCard" ],
+        "summary" : "Get profile image for the Student Identity Card which belongs to the User",
+        "operationId" : "getStudentIdentityCardImage",
+        "produces" : [ "image/jpeg" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully retrieved Student Identity Card profile image"
+          },
+          "404" : {
+            "description" : "Student Identity Card image for this {userId} not found"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "StudentIdentityCard" ],
+        "summary" : "Update profile image for the Student Identity Card which belongs to the User",
+        "operationId" : "putStudentIdentityCardImage",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "image",
+          "in" : "formData",
+          "description" : "Image to upload",
+          "required" : true,
+          "type" : "file"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Successfully uploaded Student Identity Card profile image"
+          },
+          "400" : {
+            "description" : "Provided image is invalid"
+          }
+        }
+      }
+    },
+    "/studentIdentityCard/{userId}/validate" : {
+      "put" : {
+        "tags" : [ "StudentIdentityCard" ],
+        "summary" : "Request to revalidate and extend expiration for Student Identity Card",
+        "operationId" : "putStudentIdentityCardValidation",
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Successfully requested Student Identity Card revalidation"
+          },
+          "404" : {
+            "description" : "Passport for this {userId} not found"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "Token" : {
+      "type" : "basic"
+    }
+  },
+  "definitions" : {
+    "Passport" : {
+      "type" : "object",
+      "properties" : {
+        "passportNo" : {
+          "type" : "integer",
+          "example" : 14951794
+        },
+        "surname" : {
+          "type" : "string",
+          "example" : "Basanavičienė"
+        },
+        "givenName" : {
+          "type" : "string",
+          "example" : "Birutė"
+        },
+        "nationality" : {
+          "type" : "string",
+          "example" : "Lietuvos Respublikos"
+        },
+        "dateOfBirth" : {
+          "type" : "string",
+          "format" : "dd mm yyyy",
+          "example" : "11 03 1990"
+        },
+        "sex" : {
+          "type" : "string",
+          "example" : "MOT/F"
+        },
+        "dateOfIssue" : {
+          "type" : "string",
+          "format" : "dd mm yyyy",
+          "example" : "02 01 2019"
+        },
+        "dateOfExpiry" : {
+          "type" : "string",
+          "format" : "dd mm yyyy",
+          "example" : "02 01 2029"
+        },
+        "personalNo" : {
+          "type" : "integer",
+          "example" : 49003111045
+        },
+        "placeOfBirth" : {
+          "type" : "string",
+          "example" : "Lietuva"
+        },
+        "authority" : {
+          "type" : "string",
+          "example" : "Vilnius (19)"
+        },
+        "footer" : {
+          "type" : "string",
+          "example" : "P<LTUBASANAVICIENE<<BIRUTE<<<<<<<<<<<<<<<<<<14951794<0LTU90031187290102049003111045<<<86",
+          "minLength" : 88,
+          "maxLength" : 88
+        }
+      },
+      "example" : {
+        "passportNo" : 14951794,
+        "dateOfExpiry" : "02 01 2029",
+        "placeOfBirth" : "Lietuva",
+        "nationality" : "Lietuvos Respublikos",
+        "footer" : "P<LTUBASANAVICIENE<<BIRUTE<<<<<<<<<<<<<<<<<<14951794<0LTU90031187290102049003111045<<<86",
+        "surname" : "Basanavičienė",
+        "givenName" : "Birutė",
+        "sex" : "MOT/F",
+        "authority" : "Vilnius (19)",
+        "personalNo" : 49003111045,
+        "dateOfBirth" : "11 03 1990",
+        "dateOfIssue" : "02 01 2019"
+      }
+    },
+    "PersonalIdentityCard" : {
+      "type" : "object",
+      "properties" : {
+        "surname" : {
+          "type" : "string",
+          "example" : "Bružaitė"
+        },
+        "givenName" : {
+          "type" : "string",
+          "example" : "Vigilija"
+        },
+        "nationality" : {
+          "type" : "string",
+          "example" : "Lietuvos Respublikos"
+        },
+        "sex" : {
+          "type" : "string",
+          "example" : "MOT/F"
+        },
+        "dateOfBirth" : {
+          "type" : "string",
+          "format" : "dd mm yyyy",
+          "example" : "11 03 1978"
+        },
+        "personalNo" : {
+          "type" : "integer",
+          "example" : 47803111025
+        },
+        "cardNo" : {
+          "type" : "integer",
+          "example" : 56499778
+        },
+        "dateOfExpiry" : {
+          "type" : "string",
+          "format" : "dd mm yyyy",
+          "example" : "04 07 2022"
+        },
+        "dateOfIssue" : {
+          "type" : "string",
+          "format" : "dd mm yyyy",
+          "example" : "04 07 2012"
+        },
+        "authority" : {
+          "type" : "string",
+          "example" : "Vilnius (19)"
+        },
+        "footer" : {
+          "type" : "string",
+          "example" : "I<LTU56499778<047803111025<<<<7803118F2207043LTU<<<<<<<<<<<8BRUZAITE<<VIGILIJA<<<<<<<<<<<<",
+          "minLength" : 90,
+          "maxLength" : 90
+        }
+      },
+      "example" : {
+        "dateOfExpiry" : "04 07 2022",
+        "nationality" : "Lietuvos Respublikos",
+        "footer" : "I<LTU56499778<047803111025<<<<7803118F2207043LTU<<<<<<<<<<<8BRUZAITE<<VIGILIJA<<<<<<<<<<<<",
+        "surname" : "Bružaitė",
+        "givenName" : "Vigilija",
+        "sex" : "MOT/F",
+        "authority" : "Vilnius (19)",
+        "personalNo" : 47803111025,
+        "dateOfBirth" : "11 03 1978",
+        "dateOfIssue" : "04 07 2012",
+        "cardNo" : 56499778
+      }
+    },
+    "StudentIdentityCard" : {
+      "type" : "object",
+      "properties" : {
+        "studentId" : {
+          "type" : "string",
+          "example" : "53675"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Unė"
+        },
+        "surname" : {
+          "type" : "string",
+          "example" : "Universitaitė"
+        },
+        "personalNo" : {
+          "type" : "integer",
+          "example" : 48703030001
+        },
+        "studiesAt" : {
+          "type" : "string",
+          "example" : "Socialinių mokslų f."
+        },
+        "validFrom" : {
+          "type" : "string",
+          "format" : "yyyy-mm-dd",
+          "example" : "2017-09-01"
+        },
+        "validUntil" : {
+          "type" : "string",
+          "format" : "yyyy-mm-dd",
+          "example" : "2021-06-30"
+        },
+        "spd" : {
+          "type" : "integer",
+          "example" : 701303
+        },
+        "barcode" : {
+          "type" : "string",
+          "example" : "94403905000000014"
+        }
+      },
+      "example" : {
+        "studentId" : "53675",
+        "studiesAt" : "Socialinių mokslų f.",
+        "surname" : "Universitaitė",
+        "spd" : 701303,
+        "name" : "Unė",
+        "personalNo" : 48703030001,
+        "validUntil" : "2021-06-30",
+        "validFrom" : "2017-09-01",
+        "barcode" : "94403905000000014"
+      }
+    },
+    "DrivingLicence" : {
+      "type" : "object",
+      "properties" : {
+        "1_surname" : {
+          "type" : "string",
+          "example" : "Pavardenis"
+        },
+        "2_name" : {
+          "type" : "string",
+          "example" : "Vardenis"
+        },
+        "3_dateOfBirth" : {
+          "type" : "string",
+          "format" : "dd mm yyyy",
+          "example" : "01 01 1985"
+        },
+        "4a_dateOfIssue" : {
+          "type" : "string",
+          "format" : "dd mm yyyy",
+          "example" : "24 11 2016"
+        },
+        "4b_dateOfExpiry" : {
+          "type" : "string",
+          "format" : "dd mm yyyy",
+          "example" : "24 11 2026"
+        },
+        "4c_issuedBy" : {
+          "type" : "string",
+          "example" : "VĮ Regitra"
+        },
+        "4d_personalNo" : {
+          "type" : "integer",
+          "example" : 31234567890
+        },
+        "5_licenceNo" : {
+          "type" : "integer",
+          "example" : 35983081
+        },
+        "categories" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Category"
+          }
+        }
+      },
+      "example" : {
+        "4a_dateOfIssue" : "24 11 2016",
+        "4c_issuedBy" : "VĮ Regitra",
+        "2_name" : "Vardenis",
+        "4b_dateOfExpiry" : "24 11 2026",
+        "3_dateOfBirth" : "01 01 1985",
+        "4d_personalNo" : 31234567890,
+        "1_surname" : "Pavardenis",
+        "5_licenceNo" : 35983081,
+        "categories" : [ {
+          "9_name" : "AM",
+          "12_code" : "95.(24.11.21)",
+          "11_dateOfExpiry" : "24.11.21",
+          "10_dateOfIssue" : "19.01.13"
+        }, {
+          "9_name" : "AM",
+          "12_code" : "95.(24.11.21)",
+          "11_dateOfExpiry" : "24.11.21",
+          "10_dateOfIssue" : "19.01.13"
+        } ]
+      }
+    },
+    "Category" : {
+      "type" : "object",
+      "properties" : {
+        "9_name" : {
+          "type" : "string",
+          "enum" : [ "AM", "A1", "B1", "B", "D1", "D", "BE", "D1E", "DE" ]
+        },
+        "10_dateOfIssue" : {
+          "type" : "string",
+          "format" : "dd.mm.yy",
+          "example" : "19.01.13"
+        },
+        "11_dateOfExpiry" : {
+          "type" : "string",
+          "format" : "dd.mm.yy",
+          "example" : "24.11.21"
+        },
+        "12_code" : {
+          "type" : "string",
+          "example" : "95.(24.11.21)"
+        }
+      },
+      "example" : {
+        "9_name" : "AM",
+        "12_code" : "95.(24.11.21)",
+        "11_dateOfExpiry" : "24.11.21",
+        "10_dateOfIssue" : "19.01.13"
+      }
+    },
+    "Authorization" : {
+      "type" : "object",
+      "properties" : {
+        "userId" : {
+          "type" : "string",
+          "example" : "31234567890"
+        },
+        "token" : {
+          "type" : "string",
+          "example" : "Basic ZllvSFpwcnJCR01XZXExZk9IYUFIWTZmWE53bTA1TDJLaXdZRFI2azZrWDYyclhTY3REOEhVbHZVRzZGcEVlOA=="
+        }
+      },
+      "example" : {
+        "userId" : "31234567890",
+        "token" : "Basic ZllvSFpwcnJCR01XZXExZk9IYUFIWTZmWE53bTA1TDJLaXdZRFI2azZrWDYyclhTY3REOEhVbHZVRzZGcEVlOA=="
+      }
+    }
+  }
+}
