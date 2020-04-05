@@ -18,8 +18,8 @@
     "name" : "PersonalIdentityCard",
     "description" : "Operations with Personal Identity Card"
   }, {
-    "name" : "DrivingLicence",
-    "description" : "Operations with Driving Licence"
+    "name" : "DrivingLicense",
+    "description" : "Operations with Driving License"
   }, {
     "name" : "StudentIdentityCard",
     "description" : "Operations with Student Identity Card"
@@ -446,11 +446,11 @@
         }
       }
     },
-    "/drivingLicence/{userId}" : {
+    "/drivingLicense/{userId}" : {
       "get" : {
-        "tags" : [ "DrivingLicence" ],
-        "summary" : "Get Driving Licence for the User",
-        "operationId" : "getDrivingLicence",
+        "tags" : [ "DrivingLicense" ],
+        "summary" : "Get Driving License for the User",
+        "operationId" : "getDrivingLicense",
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "userId",
@@ -460,22 +460,22 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Successfully retrieved Driving Licence model",
+            "description" : "Successfully retrieved Driving License model",
             "schema" : {
-              "$ref" : "#/definitions/DrivingLicence"
+              "$ref" : "#/definitions/DrivingLicense"
             }
           },
           "404" : {
-            "description" : "Driving Licence for this {userId} not found"
+            "description" : "Driving License for this {userId} not found"
           }
         }
       }
     },
-    "/drivingLicence/{userId}/image/small" : {
+    "/drivingLicense/{userId}/image/small" : {
       "get" : {
-        "tags" : [ "DrivingLicence" ],
-        "summary" : "Get small profile image for the Driving Licence which belongs to the User",
-        "operationId" : "getDrivingLicenceImageSmall",
+        "tags" : [ "DrivingLicense" ],
+        "summary" : "Get small profile image for the Driving License which belongs to the User",
+        "operationId" : "getDrivingLicenseImageSmall",
         "produces" : [ "image/jpeg" ],
         "parameters" : [ {
           "name" : "userId",
@@ -485,19 +485,19 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Successfully retrieved Driving Licence small profile image"
+            "description" : "Successfully retrieved Driving License small profile image"
           },
           "404" : {
-            "description" : "Driving Licence small image for this {userId} not found"
+            "description" : "Driving License small image for this {userId} not found"
           }
         }
       }
     },
-    "/drivingLicence/{userId}/signature" : {
+    "/drivingLicense/{userId}/signature" : {
       "get" : {
-        "tags" : [ "DrivingLicence" ],
-        "summary" : "Get signature image for the Driving Licence which belongs to the User",
-        "operationId" : "getDrivingLicenceSignature",
+        "tags" : [ "DrivingLicense" ],
+        "summary" : "Get signature image for the Driving License which belongs to the User",
+        "operationId" : "getDrivingLicenseSignature",
         "produces" : [ "image/jpeg" ],
         "parameters" : [ {
           "name" : "userId",
@@ -507,19 +507,19 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Successfully retrieved Driving Licence signature image"
+            "description" : "Successfully retrieved Driving License signature image"
           },
           "404" : {
-            "description" : "Driving Licence signature image for this {userId} not found"
+            "description" : "Driving License signature image for this {userId} not found"
           }
         }
       }
     },
-    "/drivingLicence/{userId}/qr" : {
+    "/drivingLicense/{userId}/qr" : {
       "get" : {
-        "tags" : [ "DrivingLicence" ],
-        "summary" : "Get QR code for the Driving Licence which belongs to the User",
-        "operationId" : "getDrivingLicenceQr",
+        "tags" : [ "DrivingLicense" ],
+        "summary" : "Get QR code for the Driving License which belongs to the User",
+        "operationId" : "getDrivingLicenseQr",
         "produces" : [ "text/plain" ],
         "parameters" : [ {
           "name" : "userId",
@@ -529,19 +529,19 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Successfully retrieved Driving Licence QR code"
+            "description" : "Successfully retrieved Driving License QR code"
           },
           "404" : {
-            "description" : "Driving Licence QR code for this {userId} not found"
+            "description" : "Driving License QR code for this {userId} not found"
           }
         }
       }
     },
-    "/drivingLicence/{userId}/nfc" : {
+    "/drivingLicense/{userId}/nfc" : {
       "get" : {
-        "tags" : [ "DrivingLicence" ],
-        "summary" : "Get NFC code for the Driving Licence which belongs to the User",
-        "operationId" : "getDrivingLicenceNfc",
+        "tags" : [ "DrivingLicense" ],
+        "summary" : "Get NFC code for the Driving License which belongs to the User",
+        "operationId" : "getDrivingLicenseNfc",
         "produces" : [ "text/plain" ],
         "parameters" : [ {
           "name" : "userId",
@@ -551,19 +551,19 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Successfully retrieved Driving Licence NFC code"
+            "description" : "Successfully retrieved Driving License NFC code"
           },
           "404" : {
-            "description" : "Driving Licence NFC code for this {userId} not found"
+            "description" : "Driving License NFC code for this {userId} not found"
           }
         }
       }
     },
-    "/drivingLicence/{userId}/image" : {
+    "/drivingLicense/{userId}/image" : {
       "get" : {
-        "tags" : [ "DrivingLicence" ],
-        "summary" : "Get profile image for the Driving Licence which belongs to the User",
-        "operationId" : "getDrivingLicenceImage",
+        "tags" : [ "DrivingLicense" ],
+        "summary" : "Get profile image for the Driving License which belongs to the User",
+        "operationId" : "getDrivingLicenseImage",
         "produces" : [ "image/jpeg" ],
         "parameters" : [ {
           "name" : "userId",
@@ -573,17 +573,17 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Successfully retrieved Driving Licence profile image"
+            "description" : "Successfully retrieved Driving License profile image"
           },
           "404" : {
-            "description" : "Driving Licence image for this {userId} not found"
+            "description" : "Driving License image for this {userId} not found"
           }
         }
       },
       "put" : {
-        "tags" : [ "DrivingLicence" ],
-        "summary" : "Update profile image for the Driving Licence which belongs to the User",
-        "operationId" : "putDrivingLicenceImage",
+        "tags" : [ "DrivingLicense" ],
+        "summary" : "Update profile image for the Driving License which belongs to the User",
+        "operationId" : "putDrivingLicenseImage",
         "consumes" : [ "multipart/form-data" ],
         "parameters" : [ {
           "name" : "userId",
@@ -599,7 +599,7 @@
         } ],
         "responses" : {
           "204" : {
-            "description" : "Successfully uploaded Driving Licence profile image"
+            "description" : "Successfully uploaded Driving License profile image"
           },
           "400" : {
             "description" : "Provided image is invalid"
@@ -607,11 +607,11 @@
         }
       }
     },
-    "/drivingLicence/{userId}/validate" : {
+    "/drivingLicense/{userId}/validate" : {
       "put" : {
-        "tags" : [ "DrivingLicence" ],
-        "summary" : "Request to revalidate and extend expiration for Driving Licence",
-        "operationId" : "putDrivingLicenceValidation",
+        "tags" : [ "DrivingLicense" ],
+        "summary" : "Request to revalidate and extend expiration for Driving License",
+        "operationId" : "putDrivingLicenseValidation",
         "parameters" : [ {
           "name" : "userId",
           "in" : "path",
@@ -620,10 +620,10 @@
         } ],
         "responses" : {
           "204" : {
-            "description" : "Successfully requested Driving Licence revalidation"
+            "description" : "Successfully requested Driving License revalidation"
           },
           "404" : {
-            "description" : "Driving Licence for this {userId} not found"
+            "description" : "Driving License for this {userId} not found"
           }
         }
       }
@@ -1010,7 +1010,7 @@
         "barcode" : "94403905000000014"
       }
     },
-    "DrivingLicence" : {
+    "DrivingLicense" : {
       "type" : "object",
       "properties" : {
         "1_surname" : {
