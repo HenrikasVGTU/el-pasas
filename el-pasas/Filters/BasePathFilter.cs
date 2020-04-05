@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace el_pasas.Filters

@@ -65,7 +65,7 @@ namespace el_pasas
                     {
                         Version = "0.1",
                         Title = "El. Pasas API",
-                        Description = ""
+                        Description = "Use this as value with Authorization header: \nBasic NDc4MDMxMTEwMjU6ZllvSFpwcnJCR01XZXExZk9IYUFIWTZmWE53bTA1TDJLaXdZRFI2azZrWDYyclhTY3REOEhVbHZVRzZGcEVlOA=="
                     });
 
                     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
