@@ -16,7 +16,7 @@ namespace el_pasas.Controllers
     public class UserController : ControllerBase
     { 
         /// <summary>
-       /// TEST TEST TEST: PKP ATSISKAITYMAS
+       /// User authorization
         /// </summary>
         
         /// <param name="creds">The string with user credentials in base64</param>
